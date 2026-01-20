@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Span de Dígitos</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+  <main id="app-container">
+    <div class="content-wrapper">
+
+      <!-- Welcome Screen -->
+      <section id="screen-welcome" class="screen">
+        <div class="screen-container text-center">
+          <h1 class="h1">Span de Dígitos</h1>
+          <p class="p-large">Este é um teste de memória operacional e atenção. Por favor, siga as instruções cuidadosamente.</p>
+          <div class="instruction-box">
+            <h2 class="h2 text-center">Rapport</h2>
+            <h3 class="h3">Etapa direta:</h3>
+            <p>Nesse teste você vai ouvir uma sequência de números em áudio, preste bastante atenção.</p>
+            <p>Assim que a sequência terminar, você deverá digitar os números que ouviu no teclado do seu computador, na mesma ordem em que eles foram falados.</p>
+            <p>Quando terminar de digitar, clique no botão para seguir para a próxima sequência.</p>
+            <p>Se cometer um erro durante a digitação clique no botão “refazer” e digite novamente a sequência.</p>
+            <p class="font-bold">Importante:</p>
+            <ul class="list">
+              <li>A sequência será reproduzida uma única vez, e não pode ser ouvida novamente, por isso, preste muita atenção.</li>
+            </ul>
+          </div>
+          <button id="btn-start" class="btn btn-primary">Iniciar</button>
+        </div>
+      </section>
+
+      <!-- Audio Test Screen -->
+      <section id="screen-audio-test" class="screen" hidden>
+        <div class="screen-container text-center">
+          <h2 class="h2">Teste de Áudio</h2>
+          <p class="p-large">Antes de iniciar, vamos testar o áudio do seu computador.</p>
+          <div id="audio-test-content">
+            <button id="btn-play-audio" class="btn btn-primary btn-icon">
+              <span id="play-audio-text">Reproduzir Áudio</span>
+            </button>
+            <p class="p-muted">Digite os números que você ouviu:</p>
+            <div id="audio-test-input-display" class="input-display"></div>
+            <button id="btn-check-audio" class="btn btn-secondary" disabled>Verificar</button>
+          </div>
+          <p id="audio-test-feedback" class="feedback"></p>
+          <button id="btn-start-test" class="btn btn-primary animate-pulse" hidden>Iniciar Teste</button>
+          <button id="btn-reload-page" class="btn btn-warning" hidden>Voltar ao Início</button>
+        </div>
+      </section>
+
+      <!-- Instructions Screen -->
+      <section id="screen-instructions" class="screen" hidden>
+        <div class="screen-container text-left">
+          <h2 id="instruction-title" class="h2"></h2>
+          <div id="instruction-content" class="prose"></div>
+          <div class="text-center" style="margin-top: 2rem;">
+            <button id="btn-ready" class="btn btn-primary">Estou Pronto</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Screen -->
+      <section id="screen-test" class="screen" hidden>
+          <div id="test-preparing" class="text-center text-5xl font-bold animate-pulse">Prepare-se!</div>
+          <div id="test-playing" class="text-center" hidden>
+            <div class="speaker-emoji large animate-pulse">🔊</div>
+          </div>
+          <div id="test-inputting" class="text-center" hidden>
+            <div class="last-typed-display">
+                <span id="last-typed-digit"></span>
+            </div>
+            <div class="button-group">
+                <button id="btn-redo" class="btn btn-warning">Refazer</button>
+                <button id="btn-next" class="btn btn-primary">Próximo</button>
+            </div>
+          </div>
+      </section>
+
+      <!-- Results Screen -->
+      <section id="screen-results" class="screen" hidden>
+        <div class="screen-container">
+            <h2 class="h1 text-center">Resultados</h2>
+            <div class="results-grid">
+                <div class="metric-card"><p>Acertos Direto (AD)</p><p id="metric-ad" class="metric-value"></p></div>
+                <div class="metric-card"><p>Acertos Inverso (AI)</p><p id="metric-ai" class="metric-value"></p></div>
+                <div class="metric-card"><p>Diferença de Acertos (DA)</p><p id="metric-da" class="metric-value"></p></div>
+                <div class="metric-card"><p>Span Direto (SD)</p><p id="metric-sd" class="metric-value"></p></div>
+                <div class="metric-card"><p>Span Inverso (SI)</p><p id="metric-si" class="metric-value"></p></div>
+                <div class="metric-card"><p>Diferença de Span (DS)</p><p id="metric-ds" class="metric-value"></p></div>
+            </div>
+
+            <div class="results-details-grid">
+                <div>
+                    <h3 class="h3">Etapa Direta</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Span</th><th>Sequência</th><th>Sua Resposta</th><th class="text-center">Resultado</th></tr></thead>
+                            <tbody id="results-direct-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="h3">Etapa Inversa</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Span</th><th>Sequência</th><th>Sua Resposta</th><th class="text-center">Resultado</th></tr></thead>
+                            <tbody id="results-inverse-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 2rem;">
+                <button id="btn-restart" class="btn btn-primary">Refazer Teste</button>
+            </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script type="module" src="src/js/script.js"></script>
+</body>
+</html>
