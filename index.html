@@ -80,40 +80,14 @@
 
       <!-- Results Screen -->
       <section id="screen-results" class="screen" hidden>
-        <div class="screen-container">
-            <h2 class="h1 text-center">Resultados</h2>
-            <div class="results-grid">
-                <div class="metric-card"><p>Acertos Direto (AD)</p><p id="metric-ad" class="metric-value"></p></div>
-                <div class="metric-card"><p>Acertos Inverso (AI)</p><p id="metric-ai" class="metric-value"></p></div>
-                <div class="metric-card"><p>Diferença de Acertos (DA)</p><p id="metric-da" class="metric-value"></p></div>
-                <div class="metric-card"><p>Span Direto (SD)</p><p id="metric-sd" class="metric-value"></p></div>
-                <div class="metric-card"><p>Span Inverso (SI)</p><p id="metric-si" class="metric-value"></p></div>
-                <div class="metric-card"><p>Diferença de Span (DS)</p><p id="metric-ds" class="metric-value"></p></div>
-            </div>
-
-            <div class="results-details-grid">
-                <div>
-                    <h3 class="h3">Etapa Direta</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead><tr><th>Span</th><th>Sequência</th><th>Sua Resposta</th><th class="text-center">Resultado</th></tr></thead>
-                            <tbody id="results-direct-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="h3">Etapa Inversa</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead><tr><th>Span</th><th>Sequência</th><th>Sua Resposta</th><th class="text-center">Resultado</th></tr></thead>
-                            <tbody id="results-inverse-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
+        <div class="screen-container text-center">
+            <h2 class="h1">Teste Concluído</h2>
+            <p class="p-large">Clique no botão abaixo para baixar o arquivo CSV com os resultados.</p>
             <div class="text-center" style="margin-top: 2rem;">
-                <button id="btn-restart" class="btn btn-primary">Refazer Teste</button>
+                <button id="btn-download-csv" class="btn btn-primary">Baixar Resultados (CSV)</button>
+            </div>
+            <div class="text-center" style="margin-top: 1rem;">
+                <button id="btn-restart" class="btn btn-secondary">Refazer Teste</button>
             </div>
         </div>
       </section>

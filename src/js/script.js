@@ -272,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showScreen('screen-instructions');
         } else {
             state.gamePhase = 'results';
-            displayResults();
             showScreen('screen-results');
         }
     };
@@ -334,45 +333,32 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // --- Results Screen ---
-    const resultsDirectBody = document.getElementById('results-direct-body');
-    const resultsInverseBody = document.getElementById('results-inverse-body');
-
-    const displayResults = () => {
-        const calculateMetrics = (res) => {
-            const correctAnswers = res.filter(r => r.isCorrect);
-            const totalCorrect = correctAnswers.length;
-            let maxSpan = 0;
-            if (correctAnswers.length > 0) {
-                 const correctSpans = correctAnswers.map(r => r.span);
-                 maxSpan = Math.max(...correctSpans);
-            }
-            return { totalCorrect, maxSpan };
-        };
-
-        const directMetrics = calculateMetrics(state.results.direct);
-        const inverseMetrics = calculateMetrics(state.results.inverse);
-        const [AD, SD] = [directMetrics.totalCorrect, directMetrics.maxSpan];
-        const [AI, SI] = [inverseMetrics.totalCorrect, inverseMetrics.maxSpan];
-
-        document.getElementById('metric-ad').textContent = AD;
-        document.getElementById('metric-ai').textContent = AI;
-        document.getElementById('metric-da').textContent = AD - AI;
-        document.getElementById('metric-sd').textContent = SD;
-        document.getElementById('metric-si').textContent = SI;
-        document.getElementById('metric-ds').textContent = SD - SI;
-
-        const renderRow = (r) => `
-            <tr>
-                <td>${r.span}</td>
-                <td class="font-mono">${r.sequence.join(', ')}</td>
-                <td class="font-mono ${!r.isCorrect ? 'incorrect-text' : ''}">${r.userAnswer.join(', ')}</td>
-                <td class="icon-cell">${r.isCorrect ? ICONS.CHECK : ICONS.X}</td>
-            </tr>`;
-
-        resultsDirectBody.innerHTML = state.results.direct.map(renderRow).join('');
-        resultsInverseBody.innerHTML = state.results.inverse.map(renderRow).join('');
+    const downloadCSV = () => {
+        const header = ['etapa', 'span', 'sequencia_apresentada', 'resposta_usuario', 'acertou'];
+        const buildRows = (stage, list) => list.map(r => [
+            stage,
+            r.span,
+            `"${r.sequence.join(' ')}"`,
+            `"${r.userAnswer.join(' ')}"`,
+            r.isCorrect ? 'sim' : 'nao'
+        ]);
+        const rows = [
+            ...buildRows('direta', state.results.direct),
+            ...buildRows('inversa', state.results.inverse)
+        ];
+        const csv = [header, ...rows].map(row => row.join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `resultados-span-auditivo-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
+    document.getElementById('btn-download-csv').addEventListener('click', downloadCSV);
     document.getElementById('btn-restart').addEventListener('click', resetState);
 
     // --- Global Keyboard Listener ---
