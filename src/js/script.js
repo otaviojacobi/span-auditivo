@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Results Screen ---
     const downloadCSV = () => {
-        const header = ['etapa', 'span', 'sequencia_apresentada', 'resposta_usuario', 'acertou'];
+        const fields = ['etapa', 'span', 'sequencia_apresentada', 'resposta_usuario', 'acertou'];
         const buildRows = (stage, list) => list.map(r => [
             stage,
             r.span,
@@ -346,7 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ...buildRows('direta', state.results.direct),
             ...buildRows('inversa', state.results.inverse)
         ];
-        const csv = [header, ...rows].map(row => row.join(',')).join('\n');
+        const headerRow = ['campo', ...rows.map((_, i) => i + 1)];
+        const fieldRows = fields.map((field, fi) => [field, ...rows.map(row => row[fi])]);
+        const csv = [headerRow, ...fieldRows].map(row => row.join(',')).join('\n');
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
